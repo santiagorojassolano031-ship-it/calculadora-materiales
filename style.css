@@ -1,0 +1,91 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #3400f2;
+}
+
+header {
+    width: 100vw;
+    height: 10vh;
+    background-color: #4CAF50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F0F0F0;
+}
+
+.logo {
+    border-radius: 50%;
+    margin-left: 2vw;
+}
+
+h1 {
+    color: #ff7b00;
+}
+
+i {
+    color: #0051ff;
+    font-size: 1.5rem;
+    margin-right: 2vw;
+}
+main{
+    width: 100 vw;
+    height: 79vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    section{
+        width: 35vw;
+        display:flex;
+        flex-direction: colum ;
+        justify-content :center;
+        align-items:center;
+}
+.perfil{
+    color: #0051ff;
+    font-size :8rem;
+    }
+    .form-login{
+    width: 30vw;
+    display:flex;
+    flex-direction: colum ;
+    justify-content: center;
+    align-items:center;
+    }
+    .inputs{
+width: 20vw;
+padding: 1vw;
+margin: 1vw;
+}
+.btn{
+    width: 10vw;pi
+    padding: 1vw;
+    margin: 1vw;
+    background-color: #ff7b00;
+    color: aquamarine;
+    font-size:1.2 rem;
+    border: none;
+    border-radius:0.2vw ;
+    }
+    .btn:hover{
+        background-color: aqua;
+        cursor: pointer ;
+        }
+        a{
+            text-decoration: none;
+            margin: 1vw;
+        }
+        footer{
+            width: 100vw;
+            height: 10vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgba(red, green, blue, alpha);
+            }
