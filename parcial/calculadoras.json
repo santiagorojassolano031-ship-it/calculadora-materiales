@@ -1,0 +1,58 @@
+{
+  "perfiles": [
+    "Cliente / Constructor",
+    "Ingeniero / Arquitecto",
+    "Estudiante"
+  ],
+  "modulos": [
+    {
+      "id": "muro",
+      "titulo": "calcular muro de ladrillo",
+      "icono": "fa-cubes-stacked",
+      "etiquetaMuestra": "Calcular el muro de ladrillo:",
+      "etiquetaDatos": "Datos del Muro:"
+    },
+    {
+      "id": "viga",
+      "titulo": "calcular viga de hormigon",
+      "icono": "fa-bars-staggered",
+      "etiquetaMuestra": "Calcular viga de hormigón:",
+      "etiquetaDatos": "Datos de la viga:"
+    },
+    {
+      "id": "columna",
+      "titulo": "calcular columnas de hormigon",
+      "icono": "fa-building-columns",
+      "etiquetaMuestra": "Calcular columnas de hormigón:",
+      "etiquetaDatos": "Datos de la columna:"
+    },
+    {
+      "id": "contrapiso",
+      "titulo": "calcular contrapisos",
+      "icono": "fa-layer-group",
+      "etiquetaMuestra": "Calcular contrapisos:",
+      "etiquetaDatos": "Datos del contrapiso:"
+    },
+    {
+      "id": "techo",
+      "titulo": "calcular techo",
+      "icono": "fa-house-chimney",
+      "etiquetaMuestra": "Calcular techo:",
+      "etiquetaDatos": "Datos del techo:"
+    },
+    {
+      "id": "piso",
+      "titulo": "calcular pisos",
+      "icono": "fa-border-all",
+      "etiquetaMuestra": "Calcular pisos:",
+      "etiquetaDatos": "Datos del piso:"
+    },
+    {
+      "id": "pintura",
+      "titulo": "Calcular pintura",
+      "icono": "fa-paint-roller",
+      "etiquetaMuestra": "Calcular pintura:",
+      "etiquetaDatos": "Datos de pintura:"
+    }
+  ]
+}

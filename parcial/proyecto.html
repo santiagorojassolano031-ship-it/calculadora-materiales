@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Materiales</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- VISTA LOGIN -->
+  <div id="view-login" class="view-container active">
+    <div class="auth-wrapper">
+      <div class="auth-banner">
+        <div class="auth-banner-graphic">
+          <i class="fa-solid fa-calculator main-icon"></i>
+          <div class="calc-title">Calculadora</div>
+          <div class="calc-math">+ - x ÷ =</div>
+        </div>
+      </div>
+      <div class="auth-form-container">
+        <div class="auth-box">
+          <h2>Bienvenido</h2>
+          <p class="subtitle"></p>
+          
+          <form id="login-form">
+            <div class="form-group">
+              <label>usuario</label>
+              <input type="text" id="login-user" value="@reallygreatsite" required>
+            </div>
+            
+            <div class="form-group">
+              <label>contraseña</label>
+              <input type="password" id="login-pass" value="12345678" required>
+            </div>
+            
+            <div class="form-options">
+              <label><input type="checkbox" checked> recuerdame</label>
+              <a href="#" onclick="alert('Instrucciones enviadas a su correo.'); return false;">olvidaste tu contraseña?</a>
+            </div>
+            
+            <button type="submit" class="btn-primary">iniciar sesion</button>
+          </form>
+
+          <div class="auth-switch">
+            ¿No tienes cuenta? <a onclick="switchAuth('register')">registrarse</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISTA REGISTRO -->
+  <div id="view-register" class="view-container">
+    <div class="auth-wrapper">
+      <div class="auth-banner">
+        <div class="auth-banner-graphic">
+          <i class="fa-solid fa-hard-hat main-icon"></i>
+          <div class="calc-title">Calculadora</div>
+          <div class="calc-math">CEMENTO</div>
+        </div>
+      </div>
+      <div class="auth-form-container">
+        <div class="auth-box">
+          <h2>Bienvenido</h2>
+          <p class="subtitle">crear una nueva cuenta</p>
+          
+          <form id="register-form">
+            <div class="form-group">
+              <label>usuario</label>
+              <input type="text" id="reg-user" placeholder="Nombre de usuario" required>
+            </div>
+            <div class="form-group">
+              <label>contraseña</label>
+              <input type="password" id="reg-pass" placeholder="••••••••" required>
+            </div>
+            <div class="form-group">
+              <label>confirmar contraseña</label>
+              <input type="password" id="reg-pass-confirm" placeholder="••••••••" required>
+            </div>
+            <div class="form-group">
+              <label>perfil</label>
+              <select id="reg-profile"></select>
+            </div>
+            
+            <button type="submit" class="btn-primary">registrarse</button>
+          </form>
+
+          <div class="auth-switch">
+            ¿Ya tienes cuenta? <a onclick="switchAuth('login')">iniciar sesion</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISTA DASHBOARD -->
+  <div id="view-dashboard" class="view-container">
+    <div class="app-layout">
+      
+      <div class="sidebar">
+        <div>
+          <div class="sidebar-brand">
+            <h3>Calculadora de<br><span>materiales</span></h3>
+          </div>
+          <ul class="sidebar-menu">
+            <li id="nav-inicio" class="active"><a onclick="showNav('inicio')"><i class="fa-solid fa-house"></i> Inicio</a></li>
+            <li id="nav-calculadora"><a onclick="showNav('calculadora')"><i class="fa-solid fa-calculator"></i> Calculadora</a></li>
+            <li id="nav-historial"><a onclick="showNav('historial')"><i class="fa-solid fa-clock-rotate-left"></i> Historial</a></li>
+            <li id="nav-perfil"><a onclick="showNav('perfil')"><i class="fa-solid fa-user"></i> Perfil</a></li>
+            <li id="nav-ayuda"><a onclick="showNav('ayuda')"><i class="fa-solid fa-circle-question"></i> Ayuda</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-menu">
+          <li><a onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Salir de sesión</a></li>
+        </div>
+      </div>
+
+      <div class="main-content">
+        
+        <div class="top-header">
+          <div class="header-welcome">
+            <h4 id="display-welcome">Bienvenido, Usuario</h4>
+          </div>
+          <div class="header-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="search-input" placeholder="buscar..." onkeyup="filterCalculators()">
+          </div>
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="avatar-initials">U</div>
+            <span id="display-username-top">Usuario</span>
+          </div>
+        </div>
+
+        <div id="subview-inicio" class="page-padding">
+          <h2 style="margin-bottom: 5px;">calculadora</h2>
+          <p style="color: var(--text-muted); margin-bottom: 25px;">seleccione cualquier opción</p>
+
+          <div class="grid-container" id="cards-grid"></div>
+        </div>
+
+        <div id="subview-calc-form" class="page-padding" style="display: none;">
+          <div class="calculator-container">
+            <div class="calc-header-action">
+              <h3 id="calc-module-title">Calcular Muro</h3>
+              <button class="btn-back" onclick="showNav('inicio')"><i class="fa-solid fa-arrow-left"></i> Volver al menu</button>
+            </div>
+
+            <p style="color: var(--accent-orange); font-weight: bold; margin-bottom: 15px;" id="calc-section-label">Datos:</p>
+
+            <div id="dynamic-inputs" class="calc-form-grid"></div>
+
+            <div class="calc-buttons">
+              <button class="btn-action btn-calc" onclick="executeCalculation()">Calcular</button>
+              <button class="btn-action btn-clear" onclick="clearCalcInputs()">Borrar</button>
+            </div>
+
+            <div class="result-box" id="result-box" style="display: none;">
+              <h5>Resultado:</h5>
+              <div class="result-content" id="result-text">--</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="subview-historial" class="page-padding" style="display: none;">
+          <h2>Historial de Cálculos</h2>
+          <p style="color: var(--text-muted); margin-bottom: 20px;">Registro de operaciones guardadas en esta sesión</p>
+          <div style="background: var(--card-bg); padding: 20px; border-radius: 12px;">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Tipo de Cálculo</th>
+                  <th>Parámetros</th>
+                  <th>Resultado Resumido</th>
+                </tr>
+              </thead>
+              <tbody id="history-rows">
+                <tr><td colspan="4" style="text-align: center; color: var(--text-muted);">No hay cálculos registrados.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="subview-perfil" class="page-padding" style="display: none;">
+          <div class="profile-card-exact">
+            <h3>Datos principales:</h3>
+            
+            <div class="profile-avatar-img">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            
+            <h4 id="profile-display-name">Usuario</h4>
+
+            <div class="profile-field-group">
+              <label>Correo</label>
+              <input type="text" class="profile-input-rounded" id="prof-email" value="usuario@gmail.com">
+            </div>
+
+            <div class="profile-field-group">
+              <label>Cambiar contraseña</label>
+              <input type="password" class="profile-input-rounded" id="prof-pass" placeholder="••••••••">
+            </div>
+
+            <div class="profile-field-group">
+              <label>Cambio de usuario</label>
+              <input type="text" class="profile-input-rounded" id="prof-user" value="Usuario">
+            </div>
+
+            <button class="btn-hecho" onclick="saveProfile()">Hecho</button>
+          </div>
+        </div>
+
+        <div id="subview-ayuda" class="page-padding" style="display: none;">
+          <h2>Centro de Ayuda</h2>
+          <p style="color: var(--text-muted); margin-top: 10px;">Esta aplicación le permite estimar de manera rápida los materiales de construcción requeridos para su obra civil.</p>
+          <ul style="margin-top: 20px; margin-left: 20px; line-height: 2;">
+            <li><b>Muro de ladrillo:</b> Calcula la cantidad de ladrillos estándar y mezcla según metros y grosor.</li>
+            <li><b>Vigas y Columnas:</b> Estima el volumen de hormigón y bolsas de cemento.</li>
+            <li><b>Contrapisos y Techos:</b> Calcula volumen con base en área y espesor.</li>
+            <li><b>Pisos:</b> Calcula los m² de cerámica/porcelanato añadiendo 10% de desperdicio.</li>
+            <li><b>Pintura:</b> Estima los litros necesarios considerando rendimiento estándar de 10 m²/litro a dos manos.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
