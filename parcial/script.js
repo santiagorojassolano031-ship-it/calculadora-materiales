@@ -4,7 +4,7 @@ let activeCalcType = "";
 let historyData = [];
 let appConfig = null;
 
-// Cargar el JSON mediante fetch
+
 document.addEventListener("DOMContentLoaded", () => {
   fetch("calculadoras.json")
     .then((response) => {
