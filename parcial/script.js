@@ -4,11 +4,10 @@ let activeCalcType = "";
 let historyData = [];
 let appConfig = null;
 
-
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("calculadoras.json")
+  fetch("http://localhost:5000/api/calculadoras")
     .then((response) => {
-      if (!response.ok) throw new Error("Error al cargar el archivo JSON");
+      if (!response.ok) throw new Error("Error al cargar los datos desde el backend en Python");
       return response.json();
     })
     .then((data) => {
@@ -62,16 +61,43 @@ function switchAuth(type) {
 
 document.getElementById("login-form")?.addEventListener("submit", function (e) {
   e.preventDefault();
-  const userVal = document.getElementById("login-user")?.value.replace("@", "");
-  currentUser = userVal || "Usuario";
-  updateUserHeader();
+  const userVal = document.getElementById("login-user")?.value.trim();
+  const passVal = document.getElementById("login-pass")?.value || document.querySelector("#login-form input[type='password']")?.value;
 
-  document.getElementById("view-login")?.classList.remove("active");
-  document.getElementById("view-dashboard")?.classList.add("active");
+  if (!userVal || !passVal) {
+    alert("Por favor ingrese usuario/correo y contraseña.");
+    return;
+  }
+
+  fetch("http://localhost:5000/api/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ usuario: userVal, password: passVal })
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success) {
+        alert("¡Bienvenido! " + data.message);
+        currentUser = data.usuario || userVal;
+        updateUserHeader();
+
+        document.getElementById("view-login")?.classList.remove("active");
+        document.getElementById("view-dashboard")?.classList.add("active");
+      } else {
+        alert("Error de ingreso: " + data.message); 
+      }
+    })
+    .catch((err) => {
+      console.error("Error al conectar con el servidor:", err);
+      alert("No se pudo conectar con el servidor backend en Python.");
+    });
 });
 
 document.getElementById("register-form")?.addEventListener("submit", function (e) {
   e.preventDefault();
+  const userVal = document.getElementById("reg-user")?.value.trim();
   const pass1 = document.getElementById("reg-pass")?.value;
   const pass2 = document.getElementById("reg-pass-confirm")?.value;
 
@@ -80,12 +106,30 @@ document.getElementById("register-form")?.addEventListener("submit", function (e
     return;
   }
 
-  currentUser = document.getElementById("reg-user")?.value || "Nuevo Usuario";
-  updateUserHeader();
-  alert("Registro exitoso. ¡Bienvenido!");
+  fetch("http://localhost:5000/api/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ usuario: userVal, password: pass1 })
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success) {
+        alert(data.message + ". Ahora puedes iniciar sesión.");
+        currentUser = userVal;
+        updateUserHeader();
 
-  document.getElementById("view-register")?.classList.remove("active");
-  document.getElementById("view-dashboard")?.classList.add("active");
+        document.getElementById("view-register")?.classList.remove("active");
+        document.getElementById("view-login")?.classList.add("active");
+      } else {
+        alert("Error al registrar: " + data.message);
+      }
+    })
+    .catch((err) => {
+      console.error("Error al registrar usuario:", err);
+      alert("No se pudo conectar con el servidor backend en Python.");
+    });
 });
 
 function updateUserHeader() {
